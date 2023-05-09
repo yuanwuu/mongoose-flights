@@ -6,9 +6,23 @@ class New extends React.Component{
             <div>
                 <h1>Create a Flight</h1>
                 <form action='/' method='POST'>
-                    Airline:<input type='text' name='airline' /><br />
-                    Flight No.:<input type='text' name='flightNo' placeholder='10 - 999' /><br />
-                    Departure:<input type='datetime-local' name='departure' /><br />
+                    <label >Airlines:</label>
+                    <select name='airline'>
+                        <option>American</option>
+                        <option>Southwest</option>
+                        <option>United</option>
+                    </select><br />
+                    <label>Airports:</label>
+                    <select name='airport'>Airport:
+                        <option>AUS</option>
+                        <option>DAL</option>
+                        <option>LAX</option>
+                        <option selected>SAN</option>
+                        <option>SEA</option>
+                    </select>
+
+                    Flight No.:<input type='text' name='flightNo' placeholder='10 - 9999' /><br />
+                    Departure:<input type='datetime-local' name='departs' /><br />
                     <input type='submit' value='Create Flight' />
                 </form>
 

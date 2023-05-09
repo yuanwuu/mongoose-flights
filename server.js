@@ -5,6 +5,8 @@ const PORT = process.env.PORT || 3000
 require('./config/database')
 // const {connect, connection} = require('mongoose') no need to require as database(line 5) made connection to mongoose
 const Flight = require('./models/flight')
+const Destination = require('./models/destination')
+const methodOverride = require('method-override')
 
 
 
@@ -20,7 +22,7 @@ app.set('views', './views');
 // This enables the req.body, after app has been defined
 app.use(express.urlencoded({ extended: false })); 
 //use methodOverride.  We'll be adding a query parameter to our delete form named _method
-// app.use(methodOverride('_method'));
+app.use(methodOverride('_method'));
 // app.use(express.static('public'))
 
 
@@ -42,11 +44,11 @@ app.use((req, res, next) => {
 
 // I.N.D.U.C.E.S
 // ------------------- INDEX (GET) ---------------------
-
+// ready to send off to controller
 app.get('/', async (req,res) =>{
   
   try {
-      const foundFlight = await Flight.find()
+    const foundFlight = await Flight.find({})
       res.status(200).render('flights/Index',{ flights:foundFlight })
 
   } catch (error) {
@@ -58,6 +60,7 @@ app.get('/', async (req,res) =>{
 
 
 // ------------------- NEW (GET) ---------------------
+// ready to send off to controller
 app.get('/new',(req,res) => {
   res.render('flights/New')
 })
@@ -66,10 +69,42 @@ app.get('/new',(req,res) => {
 
 
 
+
+// --------------------- DELETE (DELETE) --------------------
+app.delete('/flights/:id',async (req,res) =>{
+  try {
+    await Flight.findByIdAndDelete(req.params.id);
+    res.status(200).redirect('/')
+  } catch (error) {
+    res.status(400).send(err);
+  }
+})
+
+
+
+// --------------------- UPDATE (PUT) --------------------
+app.put('/flights/:id', async (req,res) =>{
+  try {
+    const updateFlight = await Flight.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {new:true})
+      console.log(updateFlight)
+      res.redirect(`/flights/${req.params.id}`)
+  } catch (error) {
+    res.status(400).send(err);
+  }
+})
+
+
+
+
+
+
 // --------------------- CREATE (POST) --------------------
+// ready to send off to controller
 app.post('/',async (req,res) =>{
   try {
-    req.body.readyToCreate = req.body.readyToCreate === 'on'
     const newFlight = await Flight.create(req.body)
     console.log(newFlight)
     res.redirect('/')
@@ -80,11 +115,27 @@ app.post('/',async (req,res) =>{
 
 
 
-// --------------------- SHOW (GET) --------------------
-app.get('/:id', async (req,res) => {
+
+// --------------------- EDIT (GET) --------------------
+app.get('/flights/:id/edit', async (req,res) => {
   try {
     const foundFlight = await Flight.findById(req.params.id)
-    res.render('flights/Show',{flights:foundFlight})
+    res.render('flights/Edit',{
+      flight: foundFlight
+    })
+  } catch (error) {
+    res.status(400).send(error)
+  }
+})
+
+
+
+
+// --------------------- SHOW (GET) --------------------
+app.get('/flights/:id', async (req,res) => {
+  try {
+    const foundFlight = await Flight.findById(req.params.id)
+    res.render('flights/Show',{flight:foundFlight})
   } catch (error) {
     res.status(400).send(error)
   }

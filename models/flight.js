@@ -8,13 +8,16 @@ const date = ()=>{
   date.setFullYear(date.getFullYear()+1)
   return date;
 }
+
+
 const flightSchema = new Schema(
 
   {
     airline: {
         type: String, 
         enum:['American','Southwest','United'],
-        require: true
+        require: true,
+        default:'SAN'
     },
     flightNo: {
         type: Number, 
@@ -25,12 +28,28 @@ const flightSchema = new Schema(
     departs: {
         type: Date, 
         default: date()
-    }
+    },
+    destinations:[
+      {
+        airport: {
+            type: String, 
+            enum:['AUS','DAL','LAX','SAN','SEA'],
+            require: true,
+            default: true
+        },
+        arrival: {
+            type: Date, 
+            require: true,
+            default: false
+        }
+      }
+    ]
   },
   {
     timestamps: true,
   }
 );
+
 
 // Creating Tweet model : We need to convert our schema into a model-- will be stored in 'flights' collection.  Mongo does this for you automatically
 // Model's are fancy constructors compiled from Schema definitions
