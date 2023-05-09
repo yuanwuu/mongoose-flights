@@ -7,8 +7,8 @@ class Show extends React.Component{
         return (
             <div>
                 <h1>This page shows individual flight info</h1>
-                <a href='/'>Flight Index</a><br />
-                <a href='/new'>Create a Flight</a><br />
+                <a href='/flights'>Flight Index</a><br />
+                <a href='/flights/new'>Create a Flight</a><br />
                 {flight.airline}<br />
                 {flight.flightNo}<br />
                 {departs}

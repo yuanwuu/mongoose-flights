@@ -7,7 +7,7 @@ class Index extends React.Component {
     return (
       <div>
         <h1>Fight Index: display all flights</h1>
-        <a href='/new'>Create a Flight</a>
+        <a href='/flights/new'>Create a Flight</a>
         <ul>
           {flights.map((flight, i) => {
             return (

@@ -5,7 +5,7 @@ class New extends React.Component{
         return(
             <div>
                 <h1>Create a Flight</h1>
-                <form action='/' method='POST'>
+                <form action='/flights' method='POST'>
                     <label >Airlines:</label>
                     <select name='airline'>
                         <option>American</option>
