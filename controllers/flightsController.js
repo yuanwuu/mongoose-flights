@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Flight = require('../models/flight')
-// const Destination = require('./models/destination')
+// const Destination = require('../models/destination')
 
 
 // ------------------- SEED ROUTE ---------------------
@@ -39,7 +39,7 @@ router.get('/', async (req,res) =>{
   router.delete('/:id',async (req,res) =>{
     try {
       await Flight.findByIdAndDelete(req.params.id);
-      res.status(200).redirect('/')
+      res.status(200).redirect('/flights')
     } catch (error) {
       res.status(400).send(err);
     }

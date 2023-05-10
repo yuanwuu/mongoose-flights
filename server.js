@@ -24,7 +24,7 @@ app.set('views', './views');
 app.use(express.urlencoded({ extended: false })); 
 //use methodOverride.  We'll be adding a query parameter to our delete form named _method
 app.use(methodOverride('_method'));
-// app.use(express.static('public'))
+app.use(express.static('public'))
 
 
 
@@ -45,6 +45,26 @@ app.use((req, res, next) => {
 
 // I.N.D.U.C.E.S
 app.use('/flights',flightsController)
+
+
+
+
+// --------------------- EMBED --------------------
+const addDestination = async(req,res) =>{
+  try {
+    const updateDesintation = await Destination.findOneAndUpdate(
+      {airport},
+      {$push:{enum:['AUS','DAL','LAX','SAN','SEA']}},
+      {new: true}
+    )
+    console.log(updateDesintation)
+  } catch(err) {
+    console.log(err)
+} finally {
+    db.close()
+}
+}
+
 
 
 

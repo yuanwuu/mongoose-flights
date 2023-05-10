@@ -1,10 +1,16 @@
 const React = require('react')
+const DefaultLayout = require('../layout/Default')
 
 class New extends React.Component{
     render() {
         return(
-            <div>
-                <h1>Create a Flight</h1>
+            <
+            DefaultLayout
+            title = 'Create a Flight' // title of the page, no link
+            link = '/flights'
+            text = 'Back to flight index' // a linked text, will redirect to above link
+            >
+             
                 <form action='/flights' method='POST'>
                     <label >Airlines:</label>
                     <select name='airline'>
@@ -26,7 +32,7 @@ class New extends React.Component{
                     <input type='submit' value='Create Flight' />
                 </form>
 
-            </div>
+            </DefaultLayout>
         )
     }
 }

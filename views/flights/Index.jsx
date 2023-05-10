@@ -1,12 +1,15 @@
 const React = require("react");
-const moment = require('moment')
+const moment = require('moment');
+const DefaultLayout = require("../layout/Default");
 
 class Index extends React.Component {
   render() {
     const { flights } = this.props;
     return (
-      <div>
-        <h1>Fight Index: display all flights</h1>
+      <DefaultLayout
+      title = 'Flight Index: display all flights' // this title replaced h1 in the next line
+      >
+        {/* <h1>Fight Index: display all flights</h1> */}
         <a href='/flights/new'>Create a Flight</a>
         <ul>
           {flights.map((flight, i) => {
@@ -14,9 +17,9 @@ class Index extends React.Component {
               <li key={i}>
                 Airline: <a href={`/flights/${flight._id}`}>{flight.airline}</a>
                 <br />
-                Flight No: {flight.flightNo} <br></br>
+                Flight No: {flight.flightNo} <br />
                 Depature: {moment(flight.departs).format('ddd MM/DD/YYYY, hh:mm a')}
-                <br></br>
+                <br />
 
                 {/* --------------------- EDIT --------------------  
                 link to this specific fruit's edit page */}
@@ -35,15 +38,13 @@ class Index extends React.Component {
                   //looks like a POST request, however from the line above server is using "_method"(methodOverride) to perform a DELETE request action.  _method=DELETE (key/value pair)
                 > 
                 <input type="submit" value="DELETE" />
-                </form><br /><br />
-              
-              
-              
+                </form><br />
+                
               </li>
             );
           })}
         </ul>
-      </div>
+      </DefaultLayout>
     );
   }
 }
