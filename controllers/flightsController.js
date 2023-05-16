@@ -70,6 +70,7 @@ router.get('/', async (req,res) =>{
   // --------------------- CREATE (POST) --------------------
   // ready to send off to controller
   router.post('/',async (req,res) =>{
+    // console.log(req.body)
     try {
       const newFlight = await Flight.create(req.body)
       console.log(newFlight)

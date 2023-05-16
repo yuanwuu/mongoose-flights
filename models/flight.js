@@ -1,5 +1,6 @@
 // destructing Schema & model from mongoose & setting them to their own vars
 const { Schema, model } = require("mongoose");
+const Destination = require('./destination')
 
 // create a new Schma
 // thsi will define the sahpe of the doc. in the colleciton
@@ -17,7 +18,7 @@ const flightSchema = new Schema(
         type: String, 
         enum:['American','Southwest','United'],
         require: true,
-        default:'SAN'
+        default:true
     },
     flightNo: {
         type: Number, 
@@ -29,21 +30,27 @@ const flightSchema = new Schema(
         type: Date, 
         default: date()
     },
-    destinations:[
-      {
-        airport: {
-            type: String, 
-            enum:['AUS','DAL','LAX','SAN','SEA'],
-            require: true,
-            default: true
-        },
-        arrival: {
-            type: Date, 
-            require: true,
-            default: false
-        }
-      }
-    ]
+    destination:{
+      type: [{ type: Schema.Types.ObjectId, ref: 'Destination' }],
+      required: true
+
+    }
+    
+    // [
+    //   {
+    //     airport: {
+    //         type: String, 
+    //         enum:['AUS','DAL','LAX','SAN','SEA'],
+    //         require: true,
+    //         default: true
+    //     },
+    //     arrival: {
+    //         type: Date, 
+    //         require: true,
+    //         default: false
+    //     }
+    //   }
+    // ]
   },
   {
     timestamps: true,
@@ -51,9 +58,4 @@ const flightSchema = new Schema(
 );
 
 
-// Creating Tweet model : We need to convert our schema into a model-- will be stored in 'flights' collection.  Mongo does this for you automatically
-// Model's are fancy constructors compiled from Schema definitions
-// An instance of a model is called a document.
-// Models are responsible for creating and reading documents from the underlying MongoDB Database
-// from here: https://mongoosejs.com/docs/models.html
 module.exports = model("Flight", flightSchema);

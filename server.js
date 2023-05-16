@@ -42,9 +42,17 @@ app.use((req, res, next) => {
 
 
 // --------------------- ROUTES --------------------
-
 // I.N.D.U.C.E.S
 app.use('/flights',flightsController)
+
+
+
+
+
+
+
+
+
 
 
 
@@ -54,7 +62,7 @@ const addDestination = async(req,res) =>{
   try {
     const updateDesintation = await Destination.findOneAndUpdate(
       {airport},
-      {$push:{enum:['AUS','DAL','LAX','SAN','SEA']}},
+      {$push:{destination:[req.body]}},
       {new: true}
     )
     console.log(updateDesintation)

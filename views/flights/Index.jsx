@@ -1,15 +1,16 @@
 const React = require("react");
 const moment = require('moment');
 const DefaultLayout = require("../layout/Default");
+const Destination = require("../../models/destination");
 
 class Index extends React.Component {
   render() {
     const { flights } = this.props;
+    console.log(flights)
     return (
       <DefaultLayout
       title = 'Flight Index: display all flights' // this title replaced h1 in the next line
       >
-        {/* <h1>Fight Index: display all flights</h1> */}
         <a href='/flights/new'>Create a Flight</a>
         <ul>
           {flights.map((flight, i) => {
@@ -20,6 +21,8 @@ class Index extends React.Component {
                 Flight No: {flight.flightNo} <br />
                 Depature: {moment(flight.departs).format('ddd MM/DD/YYYY, hh:mm a')}
                 <br />
+                {/* Airport: {flight.destination[0].airport} <br /> */}
+
 
                 {/* --------------------- EDIT --------------------  
                 link to this specific fruit's edit page */}

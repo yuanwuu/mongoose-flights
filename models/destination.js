@@ -7,7 +7,7 @@ const destinationSchema = new Schema(
         type: String, 
         enum:['AUS','DAL','LAX','SAN','SEA'],
         require: true,
-        default: false
+        default: 'SAN'
     },
     arrival: {
         type: Date, 

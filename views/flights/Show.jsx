@@ -1,18 +1,41 @@
 const React = require('react')
+const destination = require('../../models/destination')
+const DefaultLayout = require('../layout/Default')
+
+const date = ()=>{
+    let date = new Date();
+    date.setDate(date.getDate()+1)
+    return date;
+}
+
 
 class Show extends React.Component{
+
     render (){
-        const flight = this.props.flight
-        const departs = new Date(flight.departs).toString() // convert departs to a string
+
+        const flight = this.props.flight;
+        const departs = new Date(flight.departs).toString(); // convert departs to a string
+        const arrival = date().toString(); // get the date and convert it to a string
+        const destination = flight.destination
+        console.log(destination,'testing')
+
         return (
-            <div>
+            <DefaultLayout>
                 <h1>This page shows individual flight info</h1>
                 <a href='/flights'>Flight Index</a><br />
-                <a href='/flights/new'>Create a Flight</a><br />
-                {flight.airline}<br />
-                {flight.flightNo}<br />
-                {departs}
-            </div>
+                <a href='/flights/new'>Book a Flight</a><br />
+                <br />
+                Airline: {flight.airline}<br />
+                Flight No: {flight.flightNo}<br />
+                Departure: {departs} <br />
+                Airport: {flight.airport} <br />
+                
+
+                <a href={`/flights/${flight._id}/edit`}>Edit This Flight</a><br />
+
+                Arrival: {flight.destination.arrival} <br />
+                Airport: {flight.destination.airport} <br />
+            </DefaultLayout>
         )
     }
 }
